@@ -17,5 +17,14 @@ public class FailingTest {
        HotelReservation Hotel = new HotelReservation();
        assertEquals("Ridgewood", Hotel.getCheapestHotel("Rewards: 26Mar2009(thur), 27Mar2009(fri), 28Mar2009(sat)"));
    }
-   
+   @Test
+   public void test4() {
+       HotelReservation Hotel = new HotelReservation();
+       assertEquals("Ridgewood", Hotel.getCheapestHotel("Rewards: 07May2022(sat)"));
+   }
+    @Test
+    public void test5() {
+        HotelReservation Hotel = new HotelReservation();
+        assertEquals("Ridgewood", Hotel.getCheapestHotel("Rewards: 05May2022(thur), 06May2022(fri), 07May2022(sat), 08May2022(sun)"));
+    }
 }

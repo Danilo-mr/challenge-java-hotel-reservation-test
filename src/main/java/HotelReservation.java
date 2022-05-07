@@ -12,6 +12,16 @@ public class HotelReservation {
         Pattern pattern = Pattern.compile(regex);
         Matcher matcher = pattern.matcher(input);
 
+        String guestType = (input.substring(0, input.indexOf(":"))).toUpperCase();
+        if(guestType.equals("REGULAR")) {
+            this.guestType = GuestType.REGULAR;
+        } else if (guestType.equals("REWARDS")) {
+            this.guestType = GuestType.REWARDS;
+        } else {
+            System.err.println("Input is not valid!");
+            System.exit(1);
+        }
+
         daysOfTheWeekReservation = new ArrayList<>();
         while(matcher.find()) {
             if(matcher.group(1).equals("sun")) daysOfTheWeekReservation.add(1);
@@ -23,49 +33,53 @@ public class HotelReservation {
             if(matcher.group(1).equals("sat")) daysOfTheWeekReservation.add(7);
         }
 
-        String guestType = (input.substring(0, input.indexOf(":"))).toUpperCase();
-        if(guestType.equals("REGULAR")) {
-            this.guestType = GuestType.REGULAR;
-        } else if (guestType.equals("REWARDS")) {
-            this.guestType = GuestType.REWARDS;
-        } else {
-            System.err.println("Input is not valid!");
-            System.exit(1);
-        }
 
         String cheapestHotel = compareHotelsReservationsPrices();
         return cheapestHotel;
     }
 
     public String compareHotelsReservationsPrices() {
-        Hotel lakewood = new Hotel("Lakewood", 110, 80,
-                90, 80, 3);
-        int lakewoodReservationPrice = lakewood.calculateReservationPrice(daysOfTheWeekReservation, guestType);
+        String cheaperHotel = "";
+        ArrayList<Hotel> hotel = new ArrayList<>(3);
+        ArrayList<Integer> price = new ArrayList<>(3);
 
-        Hotel bridgewood = new Hotel("Bridgewood", 160, 110,
-                60, 50, 4);
-        int bridgewoodReservationPrice = bridgewood.calculateReservationPrice(daysOfTheWeekReservation, guestType);
+        hotel.add(new Hotel("Lakewood", 110, 80,
+                90, 80, 3));
+        price.add(hotel.get(0).calculateReservationPrice(daysOfTheWeekReservation, guestType));
 
-        Hotel ridgewood = new Hotel("Ridgewood", 220, 100,
-                150, 40, 5);
-        int ridgewoodReservationPrice = ridgewood.calculateReservationPrice(daysOfTheWeekReservation, guestType);
+        hotel.add(new Hotel("Bridgewood", 160, 110,
+                60, 50, 4));
+        price.add(hotel.get(1).calculateReservationPrice(daysOfTheWeekReservation, guestType));
 
-        if (lakewoodReservationPrice - bridgewoodReservationPrice < 0 && lakewoodReservationPrice - ridgewoodReservationPrice < 0) {
-            return "Lakewood";
-        } else if (bridgewoodReservationPrice - lakewoodReservationPrice < 0 && bridgewoodReservationPrice - ridgewoodReservationPrice < 0) {
-            return "Bridgewood";
-        } else if (ridgewoodReservationPrice - lakewoodReservationPrice < 0 && ridgewoodReservationPrice - bridgewoodReservationPrice < 0) {
-            return "Ridgewood";
+        hotel.add(new Hotel("Ridgewood", 220, 100,
+                150, 40, 5));
+        price.add(hotel.get(2).calculateReservationPrice(daysOfTheWeekReservation, guestType));
+
+        int[] lowerPrice = new int[price.size()];
+        int actualLower = price.get(0);
+        lowerPrice[0] = actualLower;
+
+        for(int i=1; i< price.size(); i++) {
+            if(price.get(i) < actualLower) {
+                actualLower = price.get(i);
+                for(int j=0; j<i; j++) {
+                    lowerPrice[j] = -1;
+                }
+                lowerPrice[i] = actualLower;
+            } else if(actualLower == price.get(i)) {
+                lowerPrice[i] = actualLower;
+            } else {
+                lowerPrice[i] = -1;
+            }
         }
-        if (lakewoodReservationPrice == bridgewoodReservationPrice && bridgewoodReservationPrice == ridgewoodReservationPrice) {
-            return "Ridgewood";
-        } else if (lakewoodReservationPrice == bridgewoodReservationPrice && lakewoodReservationPrice - ridgewoodReservationPrice < 0) {
-            return "Bridgewood";
-        } else if (lakewoodReservationPrice == ridgewoodReservationPrice && lakewoodReservationPrice - bridgewoodReservationPrice < 0) {
-            return "Ridgewood";
-        } else {
-            return "Ridgewood";
+        for(int i=0; i<lowerPrice.length; i++) {
+            if(lowerPrice[i]==-1) {
+                continue;
+            } else {
+
+            }
         }
+        return "";
     }
 
 }

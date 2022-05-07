@@ -1,9 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="FailingTest" tests="3" skipped="0" failures="0" errors="0" timestamp="2022-05-07T07:42:33" hostname="LAPTOP-SKU2KPLQ" time="0.002">
+<testsuite name="FailingTest" tests="5" skipped="0" failures="0" errors="0" timestamp="2022-05-07T16:52:32" hostname="LAPTOP-SKU2KPLQ" time="0.005">
   <properties/>
-  <testcase name="test1" classname="FailingTest" time="0.002"/>
+  <testcase name="test1" classname="FailingTest" time="0.003"/>
   <testcase name="test2" classname="FailingTest" time="0.0"/>
   <testcase name="test3" classname="FailingTest" time="0.0"/>
-  <system-out><![CDATA[]]></system-out>
+  <testcase name="test4" classname="FailingTest" time="0.001"/>
+  <testcase name="test5" classname="FailingTest" time="0.0"/>
+  <system-out><![CDATA[a
+b
+g
+c
+c
+]]></system-out>
   <system-err><![CDATA[]]></system-err>
 </testsuite>
