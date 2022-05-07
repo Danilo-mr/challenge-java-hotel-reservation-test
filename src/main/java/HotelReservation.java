@@ -39,7 +39,6 @@ public class HotelReservation {
     }
 
     public String compareHotelsReservationsPrices() {
-        String cheaperHotel = "";
         ArrayList<Hotel> hotel = new ArrayList<>(3);
         ArrayList<Integer> price = new ArrayList<>(3);
 
@@ -72,14 +71,21 @@ public class HotelReservation {
                 lowerPrice[i] = -1;
             }
         }
-        for(int i=0; i<lowerPrice.length; i++) {
+
+        String cheaperHotel = "";
+        for(int i=0, lastLowerIndex=-1; i<lowerPrice.length; i++) {
             if(lowerPrice[i]==-1) {
                 continue;
             } else {
-
+                if(lastLowerIndex==-1) {
+                    cheaperHotel = hotel.get(i).getName();
+                    lastLowerIndex = i;
+                } else {
+                    cheaperHotel = hotel.get(i).getClassification() > hotel.get(lastLowerIndex).getClassification() ? hotel.get(i).getName() : hotel.get(lastLowerIndex).getName();
+                }
             }
         }
-        return "";
+        return cheaperHotel;
     }
 
 }
