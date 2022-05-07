@@ -46,43 +46,23 @@ public class HotelReservation {
                 60, 50, 4);
         int bridgewoodReservationPrice = bridgewood.calculateReservationPrice(daysOfTheWeekReservation, guestType);
 
-        Hotel ridgewood = new Hotel("Ridgewood", 220,100,
+        Hotel ridgewood = new Hotel("Ridgewood", 220, 100,
                 150, 40, 5);
         int ridgewoodReservationPrice = ridgewood.calculateReservationPrice(daysOfTheWeekReservation, guestType);
-        if(lakewoodReservationPrice != bridgewoodReservationPrice) {
-            if(lakewoodReservationPrice != ridgewoodReservationPrice) {
-                if (bridgewoodReservationPrice != ridgewoodReservationPrice) {
-                    if (lakewoodReservationPrice < bridgewoodReservationPrice && lakewoodReservationPrice < ridgewoodReservationPrice) {
-                        return "Lakewood";
-                    } else if (bridgewoodReservationPrice < lakewoodReservationPrice && bridgewoodReservationPrice < ridgewoodReservationPrice) {
-                        return "Bridgewood";
-                    } else {
-                        return "Ridgewood";
-                    }
-                } else if(bridgewoodReservationPrice < lakewoodReservationPrice) {
-                    if (bridgewood.getClassification() > ridgewood.getClassification()) {
-                        return "Bridgewood";
-                    } else {
-                        return "Ridgewood";
-                    }
-                } else {
-                    return "Lakewood";
-                }
-            } else if(lakewoodReservationPrice < bridgewoodReservationPrice) {
-                if (lakewood.getClassification() > ridgewood.getClassification()) {
-                    return "Lakewood";
-                } else {
-                    return "Ridgewood";
-                }
-            } else {
-                return "Bridgewood";
-            }
-        } else if(lakewoodReservationPrice < ridgewoodReservationPrice) {
-            if (lakewood.getClassification() > bridgewood.getClassification()) {
-                return "Lakewood";
-            } else {
-                return "Bridgewood";
-            }
+
+        if (lakewoodReservationPrice - bridgewoodReservationPrice < 0 && lakewoodReservationPrice - ridgewoodReservationPrice < 0) {
+            return "Lakewood";
+        } else if (bridgewoodReservationPrice - lakewoodReservationPrice < 0 && bridgewoodReservationPrice - ridgewoodReservationPrice < 0) {
+            return "Bridgewood";
+        } else if (ridgewoodReservationPrice - lakewoodReservationPrice < 0 && ridgewoodReservationPrice - bridgewoodReservationPrice < 0) {
+            return "Ridgewood";
+        }
+        if (lakewoodReservationPrice == bridgewoodReservationPrice && bridgewoodReservationPrice == ridgewoodReservationPrice) {
+            return "Ridgewood";
+        } else if (lakewoodReservationPrice == bridgewoodReservationPrice && lakewoodReservationPrice - ridgewoodReservationPrice < 0) {
+            return "Bridgewood";
+        } else if (lakewoodReservationPrice == ridgewoodReservationPrice && lakewoodReservationPrice - bridgewoodReservationPrice < 0) {
+            return "Ridgewood";
         } else {
             return "Ridgewood";
         }
