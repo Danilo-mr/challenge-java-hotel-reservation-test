@@ -55,18 +55,18 @@ public class HotelReservation {
         price.add(hotel.get(2).calculateReservationPrice(daysOfTheWeekReservation, guestType));
 
         int[] lowerPrice = new int[price.size()];
-        int actualLower = price.get(0);
-        lowerPrice[0] = actualLower;
+        int currentLower = price.get(0);
+        lowerPrice[0] = currentLower;
 
         for(int i=1; i< price.size(); i++) {
-            if(price.get(i) < actualLower) {
-                actualLower = price.get(i);
+            if(price.get(i) < currentLower) {
+                currentLower = price.get(i);
                 for(int j=0; j<i; j++) {
                     lowerPrice[j] = -1;
                 }
-                lowerPrice[i] = actualLower;
-            } else if(actualLower == price.get(i)) {
-                lowerPrice[i] = actualLower;
+                lowerPrice[i] = currentLower;
+            } else if(currentLower == price.get(i)) {
+                lowerPrice[i] = currentLower;
             } else {
                 lowerPrice[i] = -1;
             }
