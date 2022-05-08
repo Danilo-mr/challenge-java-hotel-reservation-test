@@ -27,8 +27,7 @@ public class Hotel {
                     price+=this.weekendDailyRatesForRegulars;
                 }
             }
-        }
-        if(guestType.equals(GuestType.REWARDS)) {
+        } else if(guestType.equals(GuestType.REWARDS)) {
             for(int dayOfTheWeek : daysOfTheWeekReservation) {
                 if(dayOfTheWeek >=2 && dayOfTheWeek <=6) {
                     price+=this.weekdaysDailyRatesForRewards;
